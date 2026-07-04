@@ -9,7 +9,11 @@ const badDir = path.join(import.meta.dirname, "fixtures", "bad")
 describe("getAllPosts", () => {
   it("returns published posts sorted newest first, slug from filename", () => {
     const posts = getAllPosts({ dir })
-    expect(posts.map((p) => p.slug)).toEqual(["second-post", "first-post"])
+    expect(posts.map((p) => p.slug)).toEqual(["second-post", "second-post-b", "first-post"])
+  })
+  it("breaks ties between equal-date posts by slug ascending, deterministically", () => {
+    const posts = getAllPosts({ dir }).filter((p) => p.date === "2026-03-02")
+    expect(posts.map((p) => p.slug)).toEqual(["second-post", "second-post-b"])
   })
   it("normalizes both quoted and unquoted YAML dates to YYYY-MM-DD strings", () => {
     const posts = getAllPosts({ dir, includeDrafts: true })

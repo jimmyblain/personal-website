@@ -1,12 +1,12 @@
 import type { Metadata } from "next"
 import { Button } from "@/components/ui/button"
-import { site } from "@/lib/site"
+import { rssAlternate, site } from "@/lib/site"
 
 export const metadata: Metadata = {
   title: "About",
   description:
     "IT director and systems architect — strategy, budget, and vendor portfolio at The Rockefeller Foundation, still building the systems directly.",
-  alternates: { canonical: "/about" },
+  alternates: { canonical: "/about", types: rssAlternate() },
 }
 
 const experience = [
@@ -72,7 +72,7 @@ export default function AboutPage() {
           <h2 id="experience" className="text-[26px] font-semibold tracking-[-0.015em]">
             Experience
           </h2>
-          <Button className="rounded-lg" render={<a href={site.resume} download />}>
+          <Button className="rounded-lg" render={<a href={site.resume} download />} nativeButton={false}>
             Download PDF ↓
           </Button>
         </div>

@@ -2,18 +2,27 @@ import Link from "next/link"
 import { formatDate, type Post } from "@/lib/posts"
 import { TagChip } from "@/components/tag-chip"
 
-export function PostRow({ post, showTags = false }: { post: Post; showTags?: boolean }) {
+export function PostRow({
+  post,
+  showTags = false,
+  headingLevel = "h3",
+}: {
+  post: Post
+  showTags?: boolean
+  headingLevel?: "h2" | "h3"
+}) {
+  const Heading = headingLevel
   return (
     <article className="group relative border-t border-border-subtle py-6">
       <div className="flex items-baseline justify-between gap-4">
-        <h3 className="text-[17px] font-semibold leading-snug tracking-[-0.01em] md:text-[19px]">
+        <Heading className="text-[17px] font-semibold leading-snug tracking-[-0.01em] md:text-[19px]">
           <Link
             href={`/blog/${post.slug}`}
             className="transition-colors duration-150 after:absolute after:inset-0 group-hover:text-link"
           >
             {post.title}
           </Link>
-        </h3>
+        </Heading>
         <time dateTime={post.date} className="mono-label shrink-0 font-normal text-muted-foreground">
           {formatDate(post.date)}
         </time>

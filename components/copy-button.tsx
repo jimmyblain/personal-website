@@ -11,7 +11,11 @@ export function CopyButton() {
       aria-label="Copy code to clipboard"
       onClick={async (e) => {
         const code = e.currentTarget.closest("figure")?.querySelector("pre")?.innerText ?? ""
-        await navigator.clipboard.writeText(code)
+        try {
+          await navigator.clipboard.writeText(code)
+        } catch {
+          return
+        }
         setCopied(true)
         setTimeout(() => setCopied(false), 2000)
       }}

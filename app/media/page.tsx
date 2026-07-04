@@ -1,12 +1,13 @@
 import type { Metadata } from "next"
 import { Embed } from "@/components/embed"
 import { mediaItems } from "@/lib/media"
+import { rssAlternate } from "@/lib/site"
 
 export const metadata: Metadata = {
   title: "Media",
   description:
     "Conference talks and podcast conversations on agentic IT, identity, and the hands-on leader.",
-  alternates: { canonical: "/media" },
+  alternates: { canonical: "/media", types: rssAlternate() },
 }
 
 export default function MediaPage() {
@@ -26,7 +27,7 @@ export default function MediaPage() {
           <figure key={item.title} className={item.featured ? "md:col-span-2" : ""}>
             <Embed {...item} />
             <figcaption className="mt-4">
-              <h3 className="text-[17px] font-semibold tracking-[-0.01em] md:text-lg">{item.title}</h3>
+              <h2 className="text-[17px] font-semibold tracking-[-0.01em] md:text-lg">{item.title}</h2>
               <p className="mt-1 text-sm text-muted-foreground">{item.meta}</p>
             </figcaption>
           </figure>

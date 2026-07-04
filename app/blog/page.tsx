@@ -1,11 +1,12 @@
 import type { Metadata } from "next"
 import { PostRow } from "@/components/post-row"
 import { getAllPosts } from "@/lib/posts"
+import { rssAlternate } from "@/lib/site"
 
 export const metadata: Metadata = {
   title: "Blog",
   description: "Field notes from running enterprise IT and building the systems behind it.",
-  alternates: { canonical: "/blog" },
+  alternates: { canonical: "/blog", types: rssAlternate() },
 }
 
 export default function BlogIndexPage() {
@@ -23,7 +24,7 @@ export default function BlogIndexPage() {
 
       <div className="mt-14">
         {posts.map((post) => (
-          <PostRow key={post.slug} post={post} showTags />
+          <PostRow key={post.slug} post={post} showTags headingLevel="h2" />
         ))}
       </div>
     </div>

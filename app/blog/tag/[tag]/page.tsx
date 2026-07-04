@@ -4,6 +4,7 @@ import { notFound } from "next/navigation"
 import { PostRow } from "@/components/post-row"
 import { TagChip } from "@/components/tag-chip"
 import { getAllPosts, getAllTags, tagToSlug } from "@/lib/posts"
+import { rssAlternate } from "@/lib/site"
 
 export const dynamicParams = false
 
@@ -22,7 +23,7 @@ export async function generateMetadata({
   return {
     title: `Posts tagged "${match.tag}"`,
     description: `Writing tagged ${match.tag}.`,
-    alternates: { canonical: `/blog/tag/${tag}` },
+    alternates: { canonical: `/blog/tag/${tag}`, types: rssAlternate() },
   }
 }
 
@@ -55,7 +56,7 @@ export default async function TagPage({ params }: { params: Promise<{ tag: strin
 
       <div className="mt-12">
         {posts.map((post) => (
-          <PostRow key={post.slug} post={post} showTags />
+          <PostRow key={post.slug} post={post} showTags headingLevel="h2" />
         ))}
       </div>
     </div>

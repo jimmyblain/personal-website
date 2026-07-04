@@ -9,6 +9,7 @@ import { TagChip } from "@/components/tag-chip"
 import { codeTheme } from "@/lib/code-theme"
 import { stripFlowComments } from "@/lib/mdx"
 import { formatDate, getAllPosts, getPostBySlug } from "@/lib/posts"
+import { rssAlternate } from "@/lib/site"
 
 export const dynamicParams = false
 
@@ -27,7 +28,7 @@ export async function generateMetadata({
   return {
     title: post.title,
     description: post.summary,
-    alternates: { canonical: `/blog/${post.slug}` },
+    alternates: { canonical: `/blog/${post.slug}`, types: rssAlternate() },
     openGraph: {
       type: "article",
       title: post.title,

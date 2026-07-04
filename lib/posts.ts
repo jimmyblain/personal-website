@@ -79,7 +79,7 @@ export function getAllPosts(opts: Options = {}): Post[] {
     .filter((f) => /\.mdx?$/.test(f))
     .map((f) => parsePost(path.join(dir, f)))
     .filter((p) => includeDrafts || !p.draft)
-    .sort((a, b) => (a.date < b.date ? 1 : -1))
+    .sort((a, b) => (a.date === b.date ? a.slug.localeCompare(b.slug) : a.date < b.date ? 1 : -1))
 }
 
 export function getPostBySlug(slug: string, opts: Options = {}): Post | undefined {

@@ -30,6 +30,7 @@ export default function HomePage() {
           size="lg"
           className="rounded-lg px-[22px] max-sm:w-full"
           render={<Link href="/blog" />}
+          nativeButton={false}
         >
           Read the blog →
         </Button>

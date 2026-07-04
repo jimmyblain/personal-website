@@ -1,11 +1,11 @@
 import type { Metadata } from "next"
 import { Button } from "@/components/ui/button"
-import { site } from "@/lib/site"
+import { rssAlternate, site } from "@/lib/site"
 
 export const metadata: Metadata = {
   title: "Contact",
   description: "Get in touch about IT leadership, applied AI, and building systems that ship.",
-  alternates: { canonical: "/contact" },
+  alternates: { canonical: "/contact", types: rssAlternate() },
 }
 
 const rows = [
@@ -30,6 +30,7 @@ export default function ContactPage() {
         size="lg"
         className="mt-9 rounded-lg px-[22px] max-sm:w-full"
         render={<a href={`mailto:${site.email}`} />}
+        nativeButton={false}
       >
         {site.email} →
       </Button>

@@ -1,3 +1,13 @@
+/**
+ * Next.js merges `alternates` shallowly: any page that declares its own
+ * `alternates` (e.g. `{ canonical: ... }`) replaces the root layout's
+ * `alternates` entirely, dropping the RSS autodiscovery link. Spread this
+ * into every page-level `alternates` object to keep it present everywhere.
+ */
+export function rssAlternate() {
+  return { "application/rss+xml": `${site.url}/rss.xml` }
+}
+
 export const site = {
   name: "jimmy blain",
   title: "Jimmy Blain — IT Director & systems architect",
