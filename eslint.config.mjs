@@ -12,7 +12,13 @@ const eslintConfig = defineConfig([
     "out/**",
     "build/**",
     "next-env.d.ts",
+    // Vendored design reference, not application code.
+    "design_handoff_personal_site/**",
   ]),
+  // This is a prose-heavy editorial site where authors write apostrophes and
+  // quotes directly in JSX/MDX; escaping them everywhere is error-prone and
+  // the characters are valid HTML.
+  { rules: { "react/no-unescaped-entities": "off" } },
 ]);
 
 export default eslintConfig;
