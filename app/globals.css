@@ -158,3 +158,34 @@
     @apply font-mono text-xs font-medium uppercase tracking-[0.12em];
   }
 }
+
+/* ── Article body ──────────────────────────────────────────────── */
+.article-body > :first-child {
+  margin-top: 0;
+}
+
+/* inline code (not inside pre) */
+.article-body :not(pre) > code {
+  @apply rounded-md bg-muted px-1.5 py-0.5 font-mono text-[0.85em];
+}
+
+/* ── Code blocks (always dark, per handoff) ────────────────────── */
+[data-rehype-pretty-code-figure] {
+  @apply my-8 overflow-hidden rounded-xl;
+  background: var(--code-bg);
+  border: 1px solid var(--code-border);
+}
+[data-rehype-pretty-code-figure] figcaption[data-rehype-pretty-code-title] {
+  @apply px-4 py-2.5 font-mono text-xs;
+  background: var(--code-chrome);
+  border-bottom: 1px solid var(--code-border);
+  color: var(--code-muted);
+}
+[data-rehype-pretty-code-figure] pre {
+  @apply overflow-x-auto p-4 font-mono text-[13.5px] leading-[1.7];
+  color: var(--code-fg);
+}
+[data-rehype-pretty-code-figure] code {
+  @apply bg-transparent p-0 font-mono;
+  counter-reset: line;
+}
