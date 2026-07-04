@@ -7,6 +7,7 @@ import rehypePrettyCode from "rehype-pretty-code"
 import { mdxComponents } from "@/components/mdx"
 import { TagChip } from "@/components/tag-chip"
 import { codeTheme } from "@/lib/code-theme"
+import { stripFlowComments } from "@/lib/mdx"
 import { formatDate, getAllPosts, getPostBySlug } from "@/lib/posts"
 
 export const dynamicParams = false
@@ -72,7 +73,7 @@ export default async function PostPage({ params }: { params: Promise<{ slug: str
 
       <div className="article-body mt-10">
         <MDXRemote
-          source={post.content.replace(/<!--[\s\S]*?-->/g, "")}
+          source={stripFlowComments(post.content)}
           components={mdxComponents}
           options={{
             mdxOptions: {

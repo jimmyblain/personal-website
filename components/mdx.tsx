@@ -8,6 +8,7 @@ function Anchor({ href = "", ...props }: ComponentPropsWithoutRef<"a">) {
   const cls =
     "text-link underline decoration-link/40 underline-offset-4 transition-colors duration-150 hover:text-link-hover"
   if (href.startsWith("/")) return <Link href={href} className={cls} {...props} />
+  if (href.startsWith("#")) return <a href={href} className={cls} {...props} />
   return <a href={href} target="_blank" rel="noopener noreferrer" className={cls} {...props} />
 }
 
