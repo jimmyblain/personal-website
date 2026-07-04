@@ -1,0 +1,39 @@
+---
+title: "Shipping an executive AI agent in two weeks"
+date: "2026-06-12"
+summary: "A two-person team built a chief-of-staff agent on the Claude Agent SDK — custom MCP servers over Graph, Salesforce, and Slack — and why it beat a six-month RFP."
+tags: [AI, MCP, Python]
+---
+
+The President wanted to ask questions about organizational goals and get answers
+pulled straight from the systems where that data already lived. The conventional
+path — an RFP, a vendor build, or net-new engineering hires — was estimated at
+six-plus months. We shipped a working system in two.
+
+## The architecture
+
+The agent runs on Anthropic's Claude Agent SDK, with custom MCP servers deployed
+to Azure Container Apps. Each server exposes one system: Microsoft Graph for
+email and SharePoint, Salesforce for grantmaking data, and Slack as the
+conversational surface.
+
+```python title="resolve_device.py"
+async def resolve_primary_device(user_id: str) -> str:
+    devices = await graph.get(f"/users/{user_id}/managedDevices")
+    primary = max(devices, key=lambda d: d["lastSyncDateTime"])
+    return primary["azureADDeviceId"]
+```
+
+> The bigger win wasn't the code. It was the forcing function: to make data
+> agent-readable, leadership had to structure goals and results in the first place.
+
+Delivered with no added headcount, and it moved the whole organization toward
+being agent-centered.
+
+Here's the keynote where I walked through the build:
+
+<Embed
+  provider="youtube"
+  id="jNQXAC9IVRw"
+  title="Agentic IT: shipping AI that ships"
+/>
