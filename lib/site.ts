@@ -5,7 +5,7 @@
  * into every page-level `alternates` object to keep it present everywhere.
  */
 export function rssAlternate() {
-  return { "application/rss+xml": `${site.url}/rss.xml` }
+  return { "application/rss+xml": `${site.url}/rss.xml` };
 }
 
 export const site = {
@@ -18,7 +18,7 @@ export const site = {
   resume: "/resume.pdf",
   links: {
     linkedin: "https://www.linkedin.com/in/glajummyb",
-    github: "https://github.com/jblain",
+    github: "https://github.com/jimmyblain",
   },
   nav: [
     { href: "/", label: "Home" },
@@ -27,4 +27,4 @@ export const site = {
     { href: "/media", label: "Media" },
     { href: "/contact", label: "Contact" },
   ],
-} as const
+} as const;
