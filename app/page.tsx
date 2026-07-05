@@ -11,7 +11,7 @@ export default function HomePage() {
       <div className="flex items-center gap-3">
         <span aria-hidden className="h-[3px] w-6 rounded-full bg-warm-accent" />
         <p className="mono-label text-muted-foreground">
-          Director, IT Operations — The Rockefeller Foundation
+          IT Director & Systems Architect
         </p>
       </div>
 
