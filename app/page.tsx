@@ -16,13 +16,12 @@ export default function HomePage() {
       </div>
 
       <h1 className="mt-7 max-w-[16ch] text-[2rem] font-semibold leading-[1.06] tracking-[-0.03em] md:text-[3.75rem] md:leading-[1.03]">
-        I run enterprise IT and still write the code behind it.
+        I run enterprise IT and still build the systems behind it.
       </h1>
 
       <p className="mt-7 max-w-[56ch] text-lg leading-[1.75] text-muted-foreground">
-        A hands-on IT director and systems architect — owning strategy, a $6.4M budget, and a
-        40-vendor portfolio for a ~300-person org across four continents, while building the
-        Python, MCP servers, and identity infrastructure directly.
+        I run enterprise IT the way few leaders still do: owning the strategy, budget, and vendors,
+        and building the identity, cloud, and AI systems myself. Ten years of it, at global scale.
       </p>
 
       <div className="mt-9 flex flex-col gap-4 sm:flex-row sm:items-center sm:gap-7">
