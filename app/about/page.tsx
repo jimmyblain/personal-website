@@ -54,16 +54,15 @@ export default function AboutPage() {
 
       <div className="mt-8 space-y-6 text-lg leading-[1.75] text-muted-foreground">
         <p>
-          I'm an IT director and systems architect with about a decade across global enterprise
-          IT, multi-client MSP environments, and applied AI. At The Rockefeller Foundation I own
-          IT strategy, a $6.4M budget, and a 40–50 vendor portfolio for a ~300-person organization
-          spread across four continents.
+          I'm an IT director and systems architect with about ten years across global enterprise IT, 
+          multi-client MSP environments, and applied AI. I run the parts most people split between two roles: 
+          strategy, budget, and vendors at the top, and the systems build underneath.
         </p>
         <p>
-          What makes the role unusual is that I still build. I write the Python automation, stand
-          up custom MCP servers and AI agents on the Claude Agent SDK, and engineer identity
-          across Okta and Microsoft Entra — SSO and SCIM for roughly 40 applications. I'd rather
-          architect and automate than only direct.
+          The build isn't just a hand-off step for me. I architect the identity, cloud, and automation systems 
+          the organization runs on, and I stay in the work myself instead of passing it to a vendor or a slide deck. 
+          Most leaders at this level stopped years ago. Being close to how the systems actually behave is what 
+          keeps my calls on strategy, budget, and risk grounded, and honestly it's the part I enjoy most.
         </p>
       </div>
 
