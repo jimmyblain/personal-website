@@ -107,9 +107,10 @@ shows a green check when it's live.
 
 Once `https://jimmyblain.com` resolves:
 
-- [ ] Home, About, Blog, a blog post, Contact all load
+- [ ] Home, About, Blog, Contact all load
 - [ ] Theme toggle works and persists across reload
-- [ ] `https://jimmyblain.com/rss.xml` returns the feed (3 posts)
+- [ ] `/blog` shows the empty state (all posts are drafts until you publish a real one)
+- [ ] `https://jimmyblain.com/rss.xml` returns the feed (0 items while everything is draft)
 - [ ] `https://jimmyblain.com/sitemap.xml` and `/robots.txt` load
 - [ ] View source on a post → `<link rel="canonical">` points at `jimmyblain.com`
 - [ ] `https://jimmyblain.com/media` returns 404 (page is hidden until there's real media)

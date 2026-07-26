@@ -3,6 +3,7 @@ title: "Patch rings, automated with Python + Graph"
 date: "2026-02-09"
 summary: "Turning device-group patch management into user-aware, department-tiered Intune update rings for 300 users."
 tags: [Automation, Intune]
+draft: true
 ---
 
 <!-- PLACEHOLDER BODY — owner replaces with the real post. -->

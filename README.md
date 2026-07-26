@@ -29,6 +29,11 @@ Add `draft: true` to the frontmatter. The post is visible locally in `npm run de
 preview it) but excluded from production builds, the index, tag pages, sitemap, and RSS. Commit
 drafts freely.
 
+**All four posts currently in `content/blog/` are placeholders and marked `draft: true`**, so the
+live site publishes none of them and `/blog` shows an empty state (`components/empty-posts.tsx`,
+also used on the homepage). Drop the `draft: true` line to publish one — the empty state
+disappears on its own as soon as a post goes live.
+
 ### Embeds in a post
 
 Plain `.md` is all you need for normal writing. If you want an embed inline, name the file

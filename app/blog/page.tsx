@@ -1,4 +1,5 @@
 import type { Metadata } from "next"
+import { EmptyPosts } from "@/components/empty-posts"
 import { PostRow } from "@/components/post-row"
 import { getAllPosts } from "@/lib/posts"
 import { rssAlternate } from "@/lib/site"
@@ -23,9 +24,13 @@ export default function BlogIndexPage() {
       </p>
 
       <div className="mt-14">
-        {posts.map((post) => (
-          <PostRow key={post.slug} post={post} showTags headingLevel="h2" />
-        ))}
+        {posts.length === 0 ? (
+          <EmptyPosts />
+        ) : (
+          posts.map((post) => (
+            <PostRow key={post.slug} post={post} showTags headingLevel="h2" />
+          ))
+        )}
       </div>
     </div>
   )

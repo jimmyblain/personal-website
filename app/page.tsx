@@ -1,5 +1,6 @@
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
+import { EmptyPosts } from "@/components/empty-posts"
 import { PostRow } from "@/components/post-row"
 import { getAllPosts } from "@/lib/posts"
 
@@ -54,9 +55,11 @@ export default function HomePage() {
           </Link>
         </div>
         <div className="mt-5">
-          {recent.map((post) => (
-            <PostRow key={post.slug} post={post} />
-          ))}
+          {recent.length === 0 ? (
+            <EmptyPosts />
+          ) : (
+            recent.map((post) => <PostRow key={post.slug} post={post} />)
+          )}
         </div>
       </section>
     </div>
