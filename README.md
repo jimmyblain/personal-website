@@ -67,6 +67,14 @@ excluded from routing, so the URL 404s. To bring it back:
 3. Add `"/media"` back to the `pages` array in `app/sitemap.ts`
 4. Replace the PLACEHOLDER embeds in `lib/media.ts` with real ones
 
+### The footer is not in the design handoff
+
+`design_handoff_personal_site/README.md` specs the navbar as the only global chrome — there is
+no footer in it. `components/footer.tsx` was added anyway, deliberately: the RSS feed had no
+visible entry point, only the `<link rel="alternate">` autodiscovery tag, which helps feed
+readers but not people. It's intentionally minimal (muted copyright, one steel-blue RSS link) so
+it doesn't compete with the contact page. Don't delete it as "not in the spec."
+
 ## Development
 
 ```bash
