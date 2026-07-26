@@ -47,9 +47,20 @@ YouTube embeds are click-to-load — the page stays fast; the player loads when 
 | What                    | Where                                          |
 | ----------------------- | ---------------------------------------------- |
 | Name, domain, email, social links, nav | `lib/site.ts`                   |
-| Media page items        | `lib/media.ts` (owner: replace PLACEHOLDER embeds) |
+| Media page items        | `lib/media.ts` — page is **hidden** (see below) |
 | About page bio / resume | `app/about/page.tsx`                           |
 | Resume PDF              | `public/resume.pdf` (replace the placeholder)  |
+
+### The Media page is hidden
+
+There's nothing real to show yet, so `/media` is off the site. The page still exists at
+`app/_media/page.tsx` — the leading underscore makes it a Next.js *private folder*, which is
+excluded from routing, so the URL 404s. To bring it back:
+
+1. `git mv app/_media app/media`
+2. Restore the `{ href: "/media", label: "Media" }` entry in `lib/site.ts` → `nav`
+3. Add `"/media"` back to the `pages` array in `app/sitemap.ts`
+4. Replace the PLACEHOLDER embeds in `lib/media.ts` with real ones
 
 ## Development
 

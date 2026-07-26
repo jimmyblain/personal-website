@@ -24,7 +24,10 @@ export const site = {
     { href: "/", label: "Home" },
     { href: "/about", label: "About" },
     { href: "/blog", label: "Blog" },
-    { href: "/media", label: "Media" },
+    // Media is hidden until there are real appearances to show — the page lives
+    // at app/_media/ (underscore = private folder, excluded from routing).
+    // To bring it back: rename to app/media/, restore this entry and the
+    // sitemap path in app/sitemap.ts.
     { href: "/contact", label: "Contact" },
   ],
 } as const;

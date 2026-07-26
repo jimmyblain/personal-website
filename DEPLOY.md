@@ -107,12 +107,12 @@ shows a green check when it's live.
 
 Once `https://jimmyblain.com` resolves:
 
-- [ ] Home, About, Blog, a blog post, Media, Contact all load
+- [ ] Home, About, Blog, a blog post, Contact all load
 - [ ] Theme toggle works and persists across reload
 - [ ] `https://jimmyblain.com/rss.xml` returns the feed (3 posts)
 - [ ] `https://jimmyblain.com/sitemap.xml` and `/robots.txt` load
 - [ ] View source on a post → `<link rel="canonical">` points at `jimmyblain.com`
-- [ ] Replace any remaining placeholders: real media embed URLs in `lib/media.ts`
+- [ ] `https://jimmyblain.com/media` returns 404 (page is hidden until there's real media)
 
 ---
 

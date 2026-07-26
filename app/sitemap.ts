@@ -3,7 +3,7 @@ import { getAllPosts, getAllTags } from "@/lib/posts"
 import { site } from "@/lib/site"
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const pages = ["", "/about", "/blog", "/media", "/contact"].map((path) => ({
+  const pages = ["", "/about", "/blog", "/contact"].map((path) => ({
     url: `${site.url}${path}`,
   }))
   const posts = getAllPosts().map((post) => ({

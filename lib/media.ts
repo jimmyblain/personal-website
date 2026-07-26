@@ -1,5 +1,8 @@
 /**
- * Media appearances shown on /media.
+ * Media appearances for the /media page — currently HIDDEN (the page lives at
+ * app/_media/, a private folder Next.js excludes from routing). See README
+ * "The Media page is hidden" for how to bring it back.
+ *
  * To add one: append an item here. YouTube wants the video id (youtube.com/watch?v=<id>);
  * Spotify/Apple want the full *embed* URL from each platform's Share → Embed dialog.
  */
