@@ -66,7 +66,7 @@ Add a custom connector in Claude with these values:
 
 That's the whole connector config. You don't need a scope or one connector per Work IQ server. Connect as one test user first and make sure it signs in and returns data before you roll it out.
 
-## Step 3: control who can connect
+## Step 3 (optional): control who can connect
 
 Sign-in is delegated, so every request runs as the signed-in person, and nobody can reach data they couldn't already open in Microsoft 365. Who can turn it on is a separate question. A client ID isn't a secret, so without anything else in place, anyone in your tenant could connect.
 
