@@ -42,3 +42,6 @@ next-env.d.ts
 
 # build scratch (not part of the shipped project)
 /.superpowers/
+
+# playwright mcp scratch (screenshots, console logs from browser verification)
+/.playwright-mcp/
