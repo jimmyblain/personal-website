@@ -39,6 +39,20 @@ export const mdxComponents: MDXComponents = {
       {...props}
     />
   ),
+  table: (props) => (
+    <div className="my-8 overflow-x-auto">
+      <table className="w-full border-collapse text-base leading-[1.6]" {...props} />
+    </div>
+  ),
+  th: (props) => (
+    <th
+      className="border-b border-border-strong py-2.5 pr-6 text-left align-bottom font-semibold last:pr-0"
+      {...props}
+    />
+  ),
+  td: (props) => (
+    <td className="border-b border-border-subtle py-3 pr-6 align-top last:pr-0" {...props} />
+  ),
   a: Anchor,
   figure: Figure,
   hr: () => <hr className="my-12 border-border-subtle" />,

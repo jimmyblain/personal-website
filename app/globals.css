@@ -167,6 +167,13 @@
 /* inline code (not inside pre) */
 .article-body :not(pre) > code {
   @apply rounded-md bg-muted px-1.5 py-0.5 font-mono text-[0.85em];
+  /* long URLs/identifiers would otherwise overflow the 375px reading column */
+  overflow-wrap: anywhere;
+}
+/* …except short keys in a table's first column (e.g. error codes), which read better whole */
+.article-body td:first-child code {
+  overflow-wrap: normal;
+  white-space: nowrap;
 }
 
 /* ── Code blocks (always dark, per handoff) ────────────────────── */
