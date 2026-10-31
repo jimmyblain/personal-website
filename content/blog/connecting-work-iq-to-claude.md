@@ -3,10 +3,11 @@ title: "Connecting Microsoft Work IQ to Claude"
 date: "2026-10-31"
 summary: "Why Claude's custom connector can't sign in to Work IQ out of the box, and how a single-tenant public client app in Entra fixes it."
 tags: [AI, MCP, Entra]
-draft: true
 ---
 
-You've run Microsoft's Work IQ admin setup, GitHub Copilot connects to Work IQ without complaint, and then you add the Work IQ MCP server to Claude as a custom connector and get "failed to log in." Microsoft's docs don't cover this case, and I spent longer on it than I'd like to admit. Here's what's going on and how to fix it.
+My organization was one of many that made the move from Copilot to Claude or ChatGPT as the primary agent harness for all users. Microsoft is still playing catch-up to the major labs, but its Work IQ initiative is genuinely intriguing. My curiosity turned to real interest when Microsoft announced that Work IQ would include a hosted MCP server, meaning any MCP client (e.g., Claude) could tap into its grounded context on your Microsoft 365 tenant.
+
+Unfortunately, the official guides stop just short of making this work for any client other than GitHub Copilot. Add the Work IQ MCP server to Claude as a custom connector and you get "failed to log in." I spent longer on it than I'd like to admit, so this guide walks through the extra steps to get Claude connected.
 
 The short version: Claude needs an app registration of its own in your tenant. Create a single-tenant public client with Claude's redirect URI under the *Mobile and desktop applications* platform, give it the Work IQ permissions, and put its client ID in the connector.
 
