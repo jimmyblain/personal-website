@@ -32,11 +32,11 @@ The obvious question is why Claude can't just use Microsoft's CLI client, since 
 
 ### Option A: the script
 
-I wrote a PowerShell script that does the whole registration. It uses the same Microsoft Graph modules as Microsoft's scripts, so if you just ran theirs, you already have everything installed.
+I wrote a [PowerShell script](https://github.com/jimmyblain/workiq-claude) that does the whole registration. It uses the same Microsoft Graph modules as Microsoft's scripts, so if you just ran theirs, you already have everything installed.
 
 ```powershell
-git clone <REPO_URL>
-cd <REPO_NAME>
+git clone https://github.com/jimmyblain/workiq-claude.git
+cd workiq-claude
 ./New-ClaudeWorkIQClientApp.ps1 -TenantId <your-tenant-id>
 ```
 
