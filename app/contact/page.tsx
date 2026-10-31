@@ -36,6 +36,10 @@ export default function ContactPage() {
       </Button>
 
       <ul className="mt-16">
+        <li className="flex items-center justify-between border-t border-border-subtle py-5">
+          <span className="font-medium">Location</span>
+          <span className="font-mono text-sm text-muted-foreground">New York City metro area</span>
+        </li>
         {rows.map((row) => (
           <li key={row.label} className="border-t border-border-subtle">
             <a

@@ -15,21 +15,28 @@ const experience = [
     role: "Director, IT Operations & Services Management",
     company: "The Rockefeller Foundation",
     description:
-      "Own strategy, $6.4M budget (11% YoY savings), and DR. Architected and coded a chief-of-staff AI agent for the executive team in two weeks.",
+      "Now I set the technology strategy and own the budget, including for our public charity RF Catalytic Capital, and I've brought spend down year over year by retiring underused services and renegotiating bloated contracts. I stood up our AI governance from scratch: a monthly council with the COO and Chief People Officer, and 20 departmental AI Ambassadors who build fluency on their teams and bring use cases back to it. And I do the building myself. I've built tools and agentic workflows on top of the systems we run, so our team can talk to our infrastructure in plain English, and wrote the Azure service that checks about 750,000 Claude prompts a month against our AI usage policy (then re-architected it from $322 a month to $13). When we moved off Box, I ran the migration to SharePoint in-house with AI-built tooling and skipped roughly $207k in consultant fees.",
   },
   {
     period: "2020 — 2024",
     role: "IT Services Manager",
     company: "The Rockefeller Foundation",
     description:
-      "Led a global support team resolving 1,000+ monthly incidents at 85% first-time resolution; cut cloud spend 21% via right-sizing and automation.",
+      "Moving into management, I led and trained a global support team resolving 1,000+ incidents a month at 85% first-time resolution. The bigger work was fixing the system around that team: one Salesforce case platform in place of scattered ticket queues (it surfaced 20% more incidents that had been going unreported), automated SSO and SCIM for about 40 apps on Okta and Entra ID, and a 21% cut in yearly Azure and AWS spend. I also worked with peer departments to set a procurement policy that reined in shadow IT without leaving staff short on the tools they needed.",
   },
   {
     period: "2016 — 2020",
-    role: "Systems Engineer",
+    role: "Systems Support Engineer",
     company: "Ventucom",
     description:
-      "Administered M365 and Google Workspace across dozens of MSP clients; built repeatable SSO/RBAC access models and hardened email with DKIM/DMARC.",
+      "At an MSP, I managed 1,000+ Windows and macOS devices across client fleets with Intune and JAMF, and closed email-spoofing gaps with DKIM and DMARC. Doing the same tenant tasks by hand for every client got old fast, so I wrote PowerShell tooling that turned onboarding a new client into a CSV instead of a click-through. That habit of building my way out of repetitive work started here.",
+  },
+  {
+    period: "2015 — 2016",
+    role: "Technology Specialist",
+    company: "Medgar Evers College, CUNY",
+    description:
+      "My first IT job, while I was finishing my degree at Brooklyn College. Every technical problem in the college's career office came to me, and it was on me to keep the office and its staff running through the academic year.",
   },
 ]
 
