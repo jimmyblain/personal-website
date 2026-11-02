@@ -4,6 +4,7 @@ import Link from "next/link"
 import { usePathname } from "next/navigation"
 import { Menu } from "lucide-react"
 import { Sheet, SheetClose, SheetContent, SheetTitle, SheetTrigger } from "@/components/ui/sheet"
+import { BrandMark } from "@/components/brand-mark"
 import { ThemeToggle } from "@/components/theme-toggle"
 import { site } from "@/lib/site"
 import { cn } from "@/lib/utils"
@@ -16,10 +17,7 @@ export function Navbar() {
     <header className="sticky top-0 z-50 border-b border-border-subtle bg-background/95 backdrop-blur-sm">
       <nav className="flex items-center justify-between px-5 py-4 md:px-11 md:py-[22px]" aria-label="Main">
         <Link href="/" className="flex items-center gap-2.5">
-          {/* the one and only use of the tan warm accent */}
-          <span className="flex size-6 items-center justify-center rounded-[7px] bg-warm-accent font-mono text-xs font-medium text-warm-accent-foreground md:size-[26px]">
-            JB
-          </span>
+          <BrandMark className="size-6 shrink-0 md:size-[26px]" />
           <span className="font-mono text-sm font-medium lowercase text-foreground">{site.name}</span>
         </Link>
 
