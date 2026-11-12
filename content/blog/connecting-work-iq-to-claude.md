@@ -5,6 +5,8 @@ summary: "Why Claude's custom connector can't sign in to Work IQ out of the box,
 tags: [AI, MCP, Entra]
 ---
 
+*Update, November 11, 2026: Work IQ's new SharePoint tools need two more scopes. The script and steps below now include them. If you set this up before today, see "Adding the SharePoint tools" near the end.*
+
 My organization was one of many that made the move from Copilot to Claude or ChatGPT as the primary agent harness for all users. Microsoft is still playing catch-up to the major labs, but its Work IQ initiative is genuinely intriguing. My curiosity turned to real interest when Microsoft announced that Work IQ would include a hosted MCP server, meaning any MCP client (e.g., Claude) could tap into its grounded context on your Microsoft 365 tenant.
 
 Unfortunately, the official guides stop just short of making this work for any client other than GitHub Copilot. Add the Work IQ MCP server to Claude as a custom connector and you get "failed to log in." I spent longer on it than I'd like to admit, so this guide walks through the extra steps to get Claude connected.
@@ -43,10 +45,12 @@ cd workiq-claude
 
 It creates a single-tenant public client named "Claude Work IQ Connector" with Claude's redirect URI under the Mobile and desktop applications platform. It then adds the delegated permissions from every Work IQ resource app, grants admin consent for the whole org, and prints the client ID. It never creates a secret. Add `-UseDeviceCode` if you're on a machine without a browser.
 
+On the Work IQ app itself, the script grants only `WorkIQAgent.Ask`, `WorkIQ.Read`, and `WorkIQ.Act`. The last two unlock the SharePoint tools. Add `-ReadOnly` to leave out `WorkIQ.Act` if you want Claude reading SharePoint but not changing it.
+
 ### Option B: the Entra portal
 
 1. In the Entra admin center, go to **App registrations > New registration**. Give it a name and choose single tenant. Under Redirect URI, pick **Public client/native (mobile & desktop)** and enter `https://claude.ai/api/mcp/auth_callback`.
-2. Go to **API permissions > Add a permission > APIs my organization uses**. Add the delegated permissions for each Work IQ resource app (Work IQ Tools, mcp_MeServer, mcp_MailTools, mcp_CalendarTools, mcp_TeamsServer, mcp_OneDriveRemoteServer, mcp_SharePointRemoteServer, mcp_AdminTools, mcp_WordServer, mcp_M365Copilot). If a name doesn't show up in search, search by its app ID. The IDs are in Microsoft's enable script.
+2. Go to **API permissions > Add a permission > APIs my organization uses**. Add the delegated permissions for each Work IQ resource app (Work IQ Tools, mcp_MeServer, mcp_MailTools, mcp_CalendarTools, mcp_TeamsServer, mcp_OneDriveRemoteServer, mcp_SharePointRemoteServer, mcp_AdminTools, mcp_WordServer, mcp_M365Copilot). If a name doesn't show up in search, search by its app ID. The IDs are in Microsoft's enable script. Then add the **Work IQ** app (`fdcc1f02-fc51-4226-8753-f668596af7f7`), which isn't in that script, with just `WorkIQ.Read` and `WorkIQ.Act`. Don't tick every permission it offers: the app registration has a size limit, and adding everything from every resource gets close to it.
 3. Click **Grant admin consent**.
 4. Don't create a client secret. Copy the **Application (client) ID** from the Overview page.
 
@@ -74,6 +78,21 @@ Entra's "Assignment required" setting fixes that. In **Enterprise applications**
 
 Assign the group in the same sitting that you turn the setting on. Assignment required with nobody assigned locks everyone out, including you.
 
+## Adding the SharePoint tools
+
+Microsoft added [SharePoint tools](https://learn.microsoft.com/en-us/microsoft-365/copilot/extensibility/work-iq/sharepoint-iq) to Work IQ in preview: finding sites and files, maintaining lists, moving and sharing files, approvals, version history, and a lot more. They only show up when Claude's token carries `WorkIQ.Read` or `WorkIQ.Act` on the Work IQ app. Read covers reading; Act adds creating, changing, moving, sharing, and deleting. Neither gets past the signed-in user's own SharePoint permissions.
+
+If you created your client app before November 11, it doesn't have them. Pull the repo and run:
+
+```powershell
+git pull
+./Add-ClaudeWorkIQScopes.ps1 -TenantId <your-tenant-id> -ClientId <your-client-id>
+```
+
+It adds the scopes to the app's admin consent and keeps whatever was already granted (`-ReadOnly` works here too). Then disconnect and reconnect the connector in Claude so it picks up a new token. To check, ask Claude to search Work IQ for `/sharepoint` paths. Before the fix you get nothing; after, you get several dozen.
+
+One thing that surprised me: the SharePoint tools don't appear in Claude's tool list for the connector. That list has about a dozen general tools (`search_paths`, `get_schema`, `fetch`, `call_function`, `do_action`, and so on), and each SharePoint operation is a path like `/sharepoint/move_items` that Claude finds and runs through them. So tool permissions in Claude cover every path at once. Allowing `do_action` allows every SharePoint write, including moving, deleting, and sharing files. If you want to approve changes one at a time, leave `do_action`, `create_entity`, and `update_entity` set to ask.
+
 ## Troubleshooting
 
 | What you see | What it means |
@@ -84,3 +103,5 @@ Assign the group in the same sitting that you turn the setting on. Assignment re
 | `AADSTS7000218` | The redirect URI is under the Web platform, so Entra wants a secret. Move it to Mobile and desktop applications. |
 | `AADSTS65001` | Admin consent hasn't been granted for the client app. |
 | `AADSTS50105` | Assignment required is on and this user isn't in an assigned group. |
+| Claude finds no `/sharepoint` paths | The client app is missing `WorkIQ.Read`/`WorkIQ.Act`, or the connector wasn't reconnected after you added them. See "Adding the SharePoint tools." |
+| `Directory_ResourceSizeExceeded` | The app registration's permission list is too big. Add only the scopes listed above, or grant consent with `Add-ClaudeWorkIQScopes.ps1`, which doesn't touch the list. |
