@@ -10,10 +10,10 @@ export function ThemeToggle() {
       type="button"
       aria-label="Toggle theme"
       onClick={() => setTheme(resolvedTheme === "dark" ? "light" : "dark")}
-      className="flex size-7 items-center justify-center rounded-full border border-border text-muted-foreground transition-colors duration-150 hover:text-foreground focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring"
+      className="flex size-11 shrink-0 cursor-pointer items-center justify-center rounded border-2 border-border text-muted-foreground transition-colors duration-150 hover:text-foreground"
     >
-      <Sun className="size-3.5 dark:hidden" />
-      <Moon className="hidden size-3.5 dark:block" />
+      <Sun className="size-4 dark:hidden" />
+      <Moon className="hidden size-4 dark:block" />
     </button>
   )
 }

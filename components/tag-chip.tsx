@@ -7,9 +7,9 @@ export function TagChip({ tag, active = false }: { tag: string; active?: boolean
     <Link
       href={`/blog/tag/${tagToSlug(tag)}`}
       className={cn(
-        "rounded-full border bg-muted px-3 py-1 font-mono text-[11px] uppercase tracking-[0.08em] transition-colors duration-150",
+        "inline-flex min-h-8 items-center rounded border-2 px-2.5 font-pixel text-[16px] uppercase tracking-[0.05em] transition-colors duration-150",
         active
-          ? "border-foreground/40 text-foreground"
+          ? "border-primary text-foreground"
           : "border-border text-muted-foreground hover:text-foreground",
       )}
     >

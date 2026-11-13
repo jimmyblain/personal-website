@@ -1,8 +1,9 @@
 import type { MDXComponents } from "mdx/types"
-import type { ComponentPropsWithoutRef } from "react"
+import { isValidElement, type ComponentPropsWithoutRef, type ReactNode } from "react"
 import Link from "next/link"
 import { CopyButton } from "@/components/copy-button"
 import { Embed } from "@/components/embed"
+import { headingSlugger } from "@/lib/headings"
 
 function Anchor({ href = "", ...props }: ComponentPropsWithoutRef<"a">) {
   const cls =
@@ -25,36 +26,55 @@ function Figure(props: ComponentPropsWithoutRef<"figure">) {
   return <figure {...props} />
 }
 
-export const mdxComponents: MDXComponents = {
-  h2: (props) => (
-    <h2 className="mt-12 text-[26px] font-semibold leading-tight tracking-[-0.015em]" {...props} />
-  ),
-  h3: (props) => <h3 className="mt-10 text-xl font-semibold tracking-[-0.01em]" {...props} />,
-  p: (props) => <p className="mt-6 text-lg leading-[1.8]" {...props} />,
-  ul: (props) => <ul className="mt-6 list-disc space-y-2 pl-6 text-lg leading-[1.8]" {...props} />,
-  ol: (props) => <ol className="mt-6 list-decimal space-y-2 pl-6 text-lg leading-[1.8]" {...props} />,
-  blockquote: (props) => (
-    <blockquote
-      className="my-10 border-l-[3px] border-accent pl-6 text-xl font-medium leading-[1.6] [&_p]:mt-0 [&_p]:text-xl [&_p]:font-medium"
-      {...props}
-    />
-  ),
-  table: (props) => (
-    <div className="my-8 overflow-x-auto">
-      <table className="w-full border-collapse text-base leading-[1.6]" {...props} />
-    </div>
-  ),
-  th: (props) => (
-    <th
-      className="border-b border-border-strong py-2.5 pr-6 text-left align-bottom font-semibold last:pr-0"
-      {...props}
-    />
-  ),
-  td: (props) => (
-    <td className="border-b border-border-subtle py-3 pr-6 align-top last:pr-0" {...props} />
-  ),
-  a: Anchor,
-  figure: Figure,
-  hr: () => <hr className="my-12 border-border-subtle" />,
-  Embed,
+/** The text a reader sees in a rendered heading (through inline code, links, emphasis). */
+function nodeText(node: ReactNode): string {
+  if (typeof node === "string" || typeof node === "number") return String(node)
+  if (Array.isArray(node)) return node.map(nodeText).join("")
+  if (isValidElement(node)) return nodeText((node.props as { children?: ReactNode }).children)
+  return ""
+}
+
+/**
+ * Components for one post render. Call once per post: the `h2` ids come from a slugger that
+ * numbers repeated titles, matching the Objectives list built by `getHeadings`.
+ */
+export function createMdxComponents(): MDXComponents {
+  const slug = headingSlugger()
+  return {
+    h2: ({ children, ...props }) => (
+      <h2
+        id={slug(nodeText(children).replace(/\s+/g, " ").trim())}
+        className="mt-11 scroll-mt-6 font-pixel text-[30px] font-normal leading-[1.1] md:text-[35px]"
+        {...props}
+      >
+        {children}
+      </h2>
+    ),
+    h3: (props) => <h3 className="mt-8 text-xl font-semibold leading-snug" {...props} />,
+    p: (props) => <p className="mt-5 leading-[1.7]" {...props} />,
+    ul: (props) => <ul className="mt-5 list-disc space-y-2 pl-6 leading-[1.7] marker:text-primary" {...props} />,
+    ol: (props) => <ol className="mt-5 list-decimal space-y-2 pl-6 leading-[1.7] marker:text-primary" {...props} />,
+    blockquote: (props) => (
+      <blockquote
+        className="my-8 rounded-md border-2 border-dashed border-border bg-muted px-5 py-4 text-lg font-medium leading-[1.6] [&_p]:mt-0"
+        {...props}
+      />
+    ),
+    table: (props) => (
+      <div className="my-7 overflow-x-auto">
+        <table className="w-full border-collapse text-base leading-[1.6]" {...props} />
+      </div>
+    ),
+    th: (props) => (
+      <th
+        className="border-2 border-border px-3.5 py-2 text-left align-bottom font-pixel text-[20px] font-normal text-primary"
+        {...props}
+      />
+    ),
+    td: (props) => <td className="border-2 border-border px-3.5 py-2.5 align-top" {...props} />,
+    a: Anchor,
+    figure: Figure,
+    hr: () => <hr className="my-10 border-t-2 border-dashed border-border" />,
+    Embed,
+  }
 }

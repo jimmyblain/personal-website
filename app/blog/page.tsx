@@ -1,6 +1,8 @@
 import type { Metadata } from "next"
 import { EmptyPosts } from "@/components/empty-posts"
 import { PostRow } from "@/components/post-row"
+import { Shell } from "@/components/shell"
+import { Window } from "@/components/window"
 import { getAllPosts } from "@/lib/posts"
 import { rssAlternate } from "@/lib/site"
 
@@ -14,24 +16,25 @@ export default function BlogIndexPage() {
   const posts = getAllPosts()
 
   return (
-    <div className="mx-auto max-w-[760px] px-5 pb-24 pt-16">
-      <p className="mono-label text-muted-foreground">Writing</p>
-      <h1 className="mt-4 text-[2rem] font-semibold leading-[1.1] tracking-[-0.025em] md:text-[2.75rem]">
-        Notes on IT, AI & automation
-      </h1>
-      <p className="mt-6 max-w-[56ch] text-lg leading-[1.75] text-muted-foreground">
-        Field notes from running enterprise IT and building the systems behind it.
-      </p>
+    <Shell>
+      <Window as="header" title="Journal">
+        <h1 className="font-pixel text-[2.6rem] leading-none md:text-[3rem] lg:text-[3.75rem]">
+          Notes on IT, AI & automation
+        </h1>
+        <p className="mt-3 max-w-[56ch] text-muted-foreground">
+          Field notes from running enterprise IT and building the systems behind it.
+        </p>
+      </Window>
 
-      <div className="mt-14">
-        {posts.length === 0 ? (
-          <EmptyPosts />
-        ) : (
-          posts.map((post) => (
-            <PostRow key={post.slug} post={post} showTags headingLevel="h2" />
-          ))
-        )}
-      </div>
-    </div>
+      <Window title={`Entries · ${posts.length}`} aria-label="All posts">
+        <div className="flex flex-col gap-3">
+          {posts.length === 0 ? (
+            <EmptyPosts />
+          ) : (
+            posts.map((post) => <PostRow key={post.slug} post={post} showTags headingLevel="h2" />)
+          )}
+        </div>
+      </Window>
+    </Shell>
   )
 }

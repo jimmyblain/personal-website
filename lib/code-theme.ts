@@ -1,20 +1,20 @@
-/** Custom Shiki theme matching the handoff's code-block palette (dark-only by design). */
+/** Custom Shiki theme for the Menu Screen palette (code blocks are dark in both themes). */
 export const codeTheme = {
   name: "jb-dark",
   type: "dark",
   colors: {
-    "editor.background": "#131515",
-    "editor.foreground": "#C6CFD0",
+    "editor.background": "#07131a",
+    "editor.foreground": "#dff1ee",
   },
   tokenColors: [
-    { scope: ["comment", "punctuation.definition.comment"], settings: { foreground: "#5B6465", fontStyle: "italic" } },
-    { scope: ["keyword", "storage.type", "storage.modifier", "keyword.control"], settings: { foreground: "#86BBD4" } },
+    { scope: ["comment", "punctuation.definition.comment"], settings: { foreground: "#7f9ea0", fontStyle: "italic" } },
+    { scope: ["keyword", "storage.type", "storage.modifier", "keyword.control"], settings: { foreground: "#ffcf7f" } },
     {
       scope: ["entity.name.function", "support.function", "support.class", "entity.name.type", "support.type"],
-      settings: { foreground: "#6AB0CD" },
+      settings: { foreground: "#7fd6cf" },
     },
-    { scope: ["string", "string.quoted", "punctuation.definition.string"], settings: { foreground: "#9FD3A8" } },
-    { scope: ["constant.numeric", "constant.language"], settings: { foreground: "#6AB0CD" } },
-    { scope: ["variable", "variable.parameter"], settings: { foreground: "#C6CFD0" } },
+    { scope: ["string", "string.quoted", "punctuation.definition.string"], settings: { foreground: "#a8e6b0" } },
+    { scope: ["constant.numeric", "constant.language"], settings: { foreground: "#7fd6cf" } },
+    { scope: ["variable", "variable.parameter"], settings: { foreground: "#dff1ee" } },
   ],
 }
