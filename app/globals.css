@@ -7,9 +7,10 @@
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-  --font-heading: var(--font-sans);
+  --font-sans: var(--font-plex-sans);
+  --font-mono: var(--font-plex-mono);
+  --font-pixel: var(--font-pixel-face);
+  --font-heading: var(--font-pixel-face);
   --color-border-subtle: var(--border-subtle);
   --color-border-strong: var(--border-strong);
   --color-link: var(--link);
@@ -55,43 +56,44 @@
 }
 
 :root {
-  --background: #ffffff;
-  --foreground: #1b1e1f;
-  --card: #ffffff;
-  --card-foreground: #1b1e1f;
-  --popover: #ffffff;
-  --popover-foreground: #1b1e1f;
-  --primary: #3a6375;
-  --primary-foreground: #ffffff;
-  --secondary: #eef2f2;
-  --secondary-foreground: #1b1e1f;
-  --muted: #eef2f2;
-  --muted-foreground: #5b6465;
-  --accent: #6ab0cd;
-  --accent-foreground: #1b1e1f;
+  /* Menu Screen palette, light ("paper UI"). Dark is the default look; see .dark below. */
+  --background: #e4dec9;
+  --foreground: #15252b;
+  --card: #fbf8ec;
+  --card-foreground: #15252b;
+  --popover: #fbf8ec;
+  --popover-foreground: #15252b;
+  --primary: #9a5200;
+  --primary-foreground: #fffdf5;
+  --secondary: #eee8d4;
+  --secondary-foreground: #15252b;
+  --muted: #eee8d4;
+  --muted-foreground: #4a5e65;
+  --accent: #eee8d4;
+  --accent-foreground: #15252b;
   --destructive: #b3261e;
-  --border: #dbe2e3;
-  --input: #dbe2e3;
-  --ring: #3a6375;
+  --border: #cbc3a8;
+  --input: #cbc3a8;
+  --ring: #9a5200;
   /* custom (no shadcn slot) */
-  --border-subtle: #eaefef;
-  --border-strong: #c5d6d8;
-  --link: #3a6375;
-  --link-hover: #23404c;
-  --warm-accent: #ebc6ad;
-  --warm-accent-foreground: #77573c;
-  /* code blocks are always dark (handoff specifies dark-only code styling) */
-  --code-bg: #131515;
-  --code-chrome: #1b1e1e;
-  --code-fg: #c6cfd0;
-  --code-border: #262a2a;
-  --code-muted: #9aa6a7;
+  --border-subtle: #cbc3a8;
+  --border-strong: #1f3a45; /* the window frame */
+  --link: #8a4a00;
+  --link-hover: #5f3300;
+  --warm-accent: #9a5200;
+  --warm-accent-foreground: #fffdf5;
+  /* code blocks are always dark, in both themes */
+  --code-bg: #07131a;
+  --code-chrome: #0f2a34;
+  --code-fg: #dff1ee;
+  --code-border: #2f5562;
+  --code-muted: #a9c4c2;
   --chart-1: oklch(0.87 0 0);
   --chart-2: oklch(0.556 0 0);
   --chart-3: oklch(0.439 0 0);
   --chart-4: oklch(0.371 0 0);
   --chart-5: oklch(0.269 0 0);
-  --radius: 0.75rem;
+  --radius: 0.5rem;
   --sidebar: oklch(0.985 0 0);
   --sidebar-foreground: oklch(0.145 0 0);
   --sidebar-primary: oklch(0.205 0 0);
@@ -103,28 +105,30 @@
 }
 
 .dark {
-  --background: #191b1b;
-  --foreground: #ebf2f3;
-  --card: #202323;
-  --card-foreground: #ebf2f3;
-  --popover: #202323;
-  --popover-foreground: #ebf2f3;
-  --primary: #6ab0cd;
-  --primary-foreground: #14232a;
-  --secondary: #262a2a;
-  --secondary-foreground: #ebf2f3;
-  --muted: #262a2a;
-  --muted-foreground: #9aa6a7;
-  --accent: #6ab0cd;
-  --accent-foreground: #14232a;
-  --destructive: #e5484d;
-  --border: #333939;
-  --input: #333939;
-  --ring: #86bbd4;
-  --border-subtle: #262a2a;
-  --border-strong: #333939;
-  --link: #86bbd4;
-  --link-hover: #a5cde0;
+  --background: #0b1a22;
+  --foreground: #eef4ee;
+  --card: #11313c;
+  --card-foreground: #eef4ee;
+  --popover: #11313c;
+  --popover-foreground: #eef4ee;
+  --primary: #ffbe55;
+  --primary-foreground: #0b1a22;
+  --secondary: #0b222b;
+  --secondary-foreground: #eef4ee;
+  --muted: #0b222b;
+  --muted-foreground: #a9c4c2;
+  --accent: #0b222b;
+  --accent-foreground: #eef4ee;
+  --destructive: #ff8a80;
+  --border: #2f5562;
+  --input: #2f5562;
+  --ring: #ffbe55;
+  --border-subtle: #2f5562;
+  --border-strong: #e9e2c6;
+  --link: #ffcf7f;
+  --link-hover: #ffe3b0;
+  --warm-accent: #ffbe55;
+  --warm-accent-foreground: #0b1a22;
   --chart-1: oklch(0.87 0 0);
   --chart-2: oklch(0.556 0 0);
   --chart-3: oklch(0.439 0 0);
@@ -146,27 +150,109 @@
   }
   body {
     @apply bg-background text-foreground antialiased;
+    /* the pixel face has one weight; never let the browser fake a bold for it */
+    font-synthesis-weight: none;
+    /* faint 8px checker, the "menu backdrop" */
+    background-image: repeating-conic-gradient(rgb(255 255 255 / 0.03) 0 25%, transparent 0 50%);
+    background-size: 8px 8px;
   }
   html {
     @apply font-sans;
   }
+  /* a long unbroken word in a title must wrap inside a 375px window, not push it wider */
+  h1,
+  h2,
+  h3 {
+    overflow-wrap: anywhere;
+  }
+  :focus-visible {
+    outline: 3px solid var(--ring);
+    outline-offset: 2px;
+  }
 }
 
 @layer components {
-  /* handoff mono-label token: 11–13px mono, uppercase, wide tracking */
+  /* Pixel label: window titles, dates, field names. */
+  .px-label,
   .mono-label {
-    @apply font-mono text-xs font-medium uppercase tracking-[0.12em];
+    @apply font-pixel text-[18px] font-normal uppercase leading-tight tracking-[0.05em];
+  }
+
+  /* A menu window: light frame, dark inner keyline, hard drop shadow. */
+  .win {
+    position: relative;
+    background: var(--card);
+    border: 3px solid var(--border-strong);
+    border-radius: 8px;
+    box-shadow:
+      inset 0 0 0 2px var(--background),
+      6px 6px 0 rgb(0 0 0 / 0.3);
+    @apply p-5 md:p-7;
+  }
+  /* The tab that sits on a window's top edge. */
+  .win-title {
+    position: absolute;
+    top: -14px;
+    left: 16px;
+    max-width: calc(100% - 32px);
+    background: var(--border-strong);
+    color: var(--background);
+    padding: 2px 10px;
+    border-radius: 3px;
+    @apply truncate;
+  }
+
+  /* Primary command button. */
+  .btn-cmd {
+    @apply inline-flex min-h-12 items-center rounded-md px-5 font-pixel text-[23px];
+    background: var(--primary);
+    color: var(--primary-foreground);
+    box-shadow: 0 4px 0 rgb(0 0 0 / 0.35);
+    transition: transform 80ms, box-shadow 80ms;
+  }
+  .btn-cmd:hover {
+    filter: brightness(1.06);
+  }
+  .btn-cmd:active {
+    transform: translateY(3px);
+    box-shadow: 0 1px 0 rgb(0 0 0 / 0.35);
+  }
+
+  /* Blinking selection cursor beside the active menu item. */
+  .menu-cursor {
+    position: absolute;
+    left: 11px;
+    width: 10px;
+    height: 12px;
+    background: var(--primary);
+    clip-path: polygon(0 0, 100% 50%, 0 100%);
+    animation: menu-cursor 0.8s steps(2) infinite;
+  }
+}
+
+@keyframes menu-cursor {
+  50% {
+    transform: translateX(3px);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .menu-cursor {
+    animation: none;
   }
 }
 
 /* ── Article body ──────────────────────────────────────────────── */
+.article-body {
+  /* a bare long URL or identifier in running text wraps instead of widening the page */
+  overflow-wrap: anywhere;
+}
 .article-body > :first-child {
   margin-top: 0;
 }
 
 /* inline code (not inside pre) */
 .article-body :not(pre) > code {
-  @apply rounded-md bg-muted px-1.5 py-0.5 font-mono text-[0.85em];
+  @apply rounded bg-muted px-1.5 py-0.5 font-mono text-[0.86em];
   /* long URLs/identifiers would otherwise overflow the 375px reading column */
   overflow-wrap: anywhere;
 }
@@ -176,21 +262,41 @@
   white-space: nowrap;
 }
 
-/* ── Code blocks (always dark, per handoff) ────────────────────── */
+/* In a narrow window the table scrolls sideways; without a floor the text columns collapse to a
+   few characters wide and each row becomes a screen tall. */
+.article-body td:not(:first-child) {
+  min-width: 15rem;
+}
+
+/* ── Code blocks (always dark) ─────────────────────────────────── */
 [data-rehype-pretty-code-figure] {
-  @apply my-8 overflow-hidden rounded-xl;
+  @apply my-7 overflow-hidden rounded-md;
   background: var(--code-bg);
-  border: 1px solid var(--code-border);
+  border: 2px solid var(--code-border);
 }
 [data-rehype-pretty-code-figure] figcaption[data-rehype-pretty-code-title] {
   @apply px-4 py-2.5 font-mono text-xs;
   background: var(--code-chrome);
-  border-bottom: 1px solid var(--code-border);
+  border-bottom: 2px solid var(--code-border);
   color: var(--code-muted);
 }
 [data-rehype-pretty-code-figure] pre {
-  @apply overflow-x-auto p-4 font-mono text-[13.5px] leading-[1.7];
+  @apply overflow-x-auto px-4 pb-4 pt-3 font-mono text-[13.5px] leading-[1.7];
   color: var(--code-fg);
+}
+/* language tab, e.g. "POWERSHELL"; stays put while the code scrolls sideways */
+[data-rehype-pretty-code-figure] pre::before {
+  content: attr(data-language);
+  position: sticky;
+  left: 0;
+  display: block;
+  width: fit-content;
+  margin-bottom: 10px;
+  color: var(--code-muted);
+  @apply font-pixel text-[16px] uppercase tracking-[0.05em];
+}
+[data-rehype-pretty-code-figure] pre[data-language="text"]::before {
+  content: "code";
 }
 [data-rehype-pretty-code-figure] code {
   @apply bg-transparent p-0 font-mono;

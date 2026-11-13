@@ -1,5 +1,7 @@
 import type { Metadata } from "next"
-import { Button } from "@/components/ui/button"
+import { Shell } from "@/components/shell"
+import { Portrait } from "@/components/sprite"
+import { Window } from "@/components/window"
 import { rssAlternate, site } from "@/lib/site"
 
 export const metadata: Metadata = {
@@ -53,67 +55,81 @@ const skills = [
 
 export default function AboutPage() {
   return (
-    <div className="mx-auto max-w-[760px] px-5 pb-24 pt-16">
-      <p className="mono-label text-muted-foreground">About</p>
-      <h1 className="mt-4 text-[2rem] font-semibold leading-[1.1] tracking-[-0.025em] md:text-[2.75rem]">
-        The hands-on director
-      </h1>
-
-      <div className="mt-8 space-y-6 text-lg leading-[1.75] text-muted-foreground">
-        <p>
-          I'm an IT director and systems architect with about ten years across global enterprise IT, 
-          multi-client MSP environments, and applied AI. I run the parts most people split between two roles: 
-          strategy, budget, and vendors at the top, and the systems build underneath.
-        </p>
-        <p>
-          The build isn't just a hand-off step for me. I architect the identity, cloud, and automation systems 
-          the organization runs on, and I stay in the work myself instead of passing it to a vendor or a slide deck. 
-          Most leaders at this level stopped years ago. Being close to how the systems actually behave is what 
-          keeps my calls on strategy, budget, and risk grounded, and honestly it's the part I enjoy most.
-        </p>
-      </div>
-
-      <section className="mt-20" aria-labelledby="experience">
-        <div className="flex items-center justify-between">
-          <h2 id="experience" className="text-[26px] font-semibold tracking-[-0.015em]">
-            Experience
-          </h2>
-          <Button className="rounded-lg" render={<a href={site.resume} download />} nativeButton={false}>
+    <Shell
+      aside={
+        // desktop only: on a phone this would push the page title down, so the same button is
+        // repeated inside the Status window below
+        <Window title="Resume" className="hidden p-6 md:block">
+          <a href={site.resume} download className="btn-cmd">
             Download PDF ↓
-          </Button>
-        </div>
-        <div className="mt-6">
-          {experience.map((job) => (
-            <div
-              key={job.role}
-              className="grid gap-2 border-t border-border-subtle py-7 md:grid-cols-[150px_1fr] md:gap-6"
-            >
-              <p className="mono-label pt-1 font-normal text-muted-foreground">{job.period}</p>
-              <div>
-                <h3 className="text-[17px] font-semibold tracking-[-0.01em] md:text-lg">{job.role}</h3>
-                <p className="mt-1 text-sm text-muted-foreground">{job.company}</p>
-                <p className="mt-3 max-w-[60ch] text-muted-foreground">{job.description}</p>
-              </div>
+          </a>
+        </Window>
+      }
+    >
+      <Window title="Status">
+        <div className="flex flex-col gap-5 sm:flex-row sm:items-start sm:gap-7 md:flex-col lg:flex-row">
+          <Portrait />
+          <div className="min-w-0">
+            <h1 className="font-pixel text-[2.6rem] leading-none md:text-[3rem] lg:text-[3.75rem]">
+              The hands-on director
+            </h1>
+            <div className="mt-4 max-w-[64ch] space-y-4 text-muted-foreground">
+              <p>
+                I&apos;m an IT director and systems architect with about ten years across global
+                enterprise IT, multi-client MSP environments, and applied AI. I run the parts most
+                people split between two roles: strategy, budget, and vendors at the top, and the
+                systems build underneath.
+              </p>
+              <p>
+                The build isn&apos;t just a hand-off step for me. I architect the identity, cloud,
+                and automation systems the organization runs on, and I stay in the work myself
+                instead of passing it to a vendor or a slide deck. Most leaders at this level
+                stopped years ago. Being close to how the systems actually behave is what keeps my
+                calls on strategy, budget, and risk grounded, and honestly it&apos;s the part I
+                enjoy most.
+              </p>
             </div>
-          ))}
+            <a href={site.resume} download className="btn-cmd mt-5 md:hidden">
+              Download PDF ↓
+            </a>
+          </div>
         </div>
-      </section>
+      </Window>
 
-      <section className="mt-16" aria-labelledby="skills">
-        <h2 id="skills" className="text-[26px] font-semibold tracking-[-0.015em]">
+      <Window title="Quest log · experience" aria-labelledby="experience">
+        <h2 id="experience" className="sr-only">
+          Experience
+        </h2>
+        {experience.map((job, i) => (
+          <div
+            key={job.role}
+            className="border-t-2 border-dashed border-border py-5 first-of-type:border-t-0 first-of-type:pt-1 last:pb-0"
+          >
+            <div className="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1">
+              <h3 className="text-xl font-semibold leading-snug">{job.role}</h3>
+              <p className={`px-label ${i === 0 ? "text-primary" : "text-muted-foreground"}`}>
+                {i === 0 ? "Active" : "Complete"} · {job.period}
+              </p>
+            </div>
+            <p className="px-label mt-1 text-muted-foreground">{job.company}</p>
+            <p className="mt-2 max-w-[70ch] text-muted-foreground">{job.description}</p>
+          </div>
+        ))}
+      </Window>
+
+      <Window title="Abilities · skills" aria-labelledby="skills">
+        <h2 id="skills" className="sr-only">
           Skills
         </h2>
-        <ul className="mt-6 flex flex-wrap gap-2.5">
+        <ul className="grid gap-x-5 gap-y-2.5 sm:grid-cols-2 lg:grid-cols-3">
           {skills.map((skill) => (
-            <li
-              key={skill}
-              className="rounded-full border border-border bg-muted px-3 py-1.5 font-mono text-xs text-muted-foreground"
-            >
+            <li key={skill} className="flex items-center gap-2.5">
+              <span aria-hidden className="size-2 shrink-0 bg-primary" />
               {skill}
             </li>
           ))}
         </ul>
-      </section>
-    </div>
+      </Window>
+    </Shell>
   )
 }

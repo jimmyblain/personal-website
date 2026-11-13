@@ -21,7 +21,9 @@ the filesystem · deployed on Vercel. Fully static — no database, no CMS, no b
    (`/blog/my-post-title`).
 4. Commit and push. Vercel builds and deploys automatically.
 
-That's it. The blog index, tag pages, sitemap, and RSS feed all update themselves.
+That's it. The blog index, tag pages, sitemap, and RSS feed all update themselves. So does the
+post's own page: its "Objectives" list is built from the post's `## ` headings, so there is no
+layout to touch.
 
 ### Drafts
 

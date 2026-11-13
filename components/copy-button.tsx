@@ -19,7 +19,7 @@ export function CopyButton() {
         setCopied(true)
         setTimeout(() => setCopied(false), 2000)
       }}
-      className="absolute right-4 top-2.5 z-10 font-mono text-xs text-[#86BBD4] transition-opacity hover:opacity-80"
+      className="absolute right-3 top-1.5 z-10 flex min-h-9 cursor-pointer items-center px-1 font-pixel text-[16px] uppercase tracking-[0.05em] text-[#ffcf7f] transition-opacity hover:opacity-80"
     >
       {copied ? "Copied" : "Copy"}
     </button>

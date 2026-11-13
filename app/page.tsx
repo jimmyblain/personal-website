@@ -1,67 +1,106 @@
 import Link from "next/link"
-import { Button } from "@/components/ui/button"
 import { EmptyPosts } from "@/components/empty-posts"
 import { PostRow } from "@/components/post-row"
+import { Shell } from "@/components/shell"
+import { Portrait } from "@/components/sprite"
+import { Window } from "@/components/window"
 import { getAllPosts } from "@/lib/posts"
+import { achievements } from "@/lib/site"
+
+const status = [
+  { label: "Class", value: "IT Director & Systems Architect" },
+  { label: "Guild", value: "The Rockefeller Foundation" },
+  { label: "Experience", value: "Ten years, at global scale" },
+]
 
 export default function HomePage() {
   const recent = getAllPosts().slice(0, 3)
 
   return (
-    <div className="mx-auto max-w-[760px] px-5 pb-24 pt-16 md:pt-20">
-      <div className="flex items-center gap-3">
-        <span aria-hidden className="h-[3px] w-6 rounded-full bg-warm-accent" />
-        <p className="mono-label text-muted-foreground">
-          IT Director & Systems Architect
+    <Shell
+      aside={
+        <Window title="Location" className="hidden p-6 md:block">
+          <p className="px-label">New York City metro area</p>
+        </Window>
+      }
+    >
+      <Window title="Status">
+        <div className="flex flex-col gap-5 sm:flex-row sm:items-center sm:gap-7 md:flex-col md:items-start lg:flex-row lg:items-center">
+          <Portrait />
+          <div className="min-w-0">
+            <h1 className="font-pixel text-[2.6rem] leading-none md:text-[3rem] lg:text-[3.75rem]">
+              Jimmy Blain
+            </h1>
+            <dl className="mt-3.5 grid grid-cols-[auto_1fr] gap-x-5 gap-y-1.5">
+              {status.map(({ label, value }) => (
+                <div key={label} className="contents">
+                  <dt className="px-label pt-1 text-primary">{label}</dt>
+                  <dd>{value}</dd>
+                </div>
+              ))}
+            </dl>
+          </div>
+        </div>
+      </Window>
+
+      <Window title="Message">
+        <h2 className="max-w-[24ch] text-balance font-pixel text-[1.9rem] leading-[1.1] md:text-[2.4rem]">
+          I run enterprise IT and still build the systems behind it.
+        </h2>
+        <p className="mt-3 max-w-[62ch] text-muted-foreground">
+          I run enterprise IT the way few leaders still do: owning the strategy, budget, and
+          vendors, and building the identity, cloud, and AI systems myself. Ten years of it, at
+          global scale.
         </p>
-      </div>
+        <div className="mt-5 flex flex-wrap items-center gap-x-6 gap-y-3">
+          <Link href="/blog" className="btn-cmd">
+            Read the blog
+          </Link>
+          <Link
+            href="/about"
+            className="flex min-h-11 items-center text-link underline decoration-link/40 underline-offset-4 transition-colors duration-150 hover:text-link-hover"
+          >
+            About & resume
+          </Link>
+        </div>
+      </Window>
 
-      <h1 className="mt-7 max-w-[16ch] text-[2rem] font-semibold leading-[1.06] tracking-[-0.03em] md:text-[3.75rem] md:leading-[1.03]">
-        I run enterprise IT and still build the systems behind it.
-      </h1>
-
-      <p className="mt-7 max-w-[56ch] text-lg leading-[1.75] text-muted-foreground">
-        I run enterprise IT the way few leaders still do: owning the strategy, budget, and vendors,
-        and building the identity, cloud, and AI systems myself. Ten years of it, at global scale.
-      </p>
-
-      <div className="mt-9 flex flex-col gap-4 sm:flex-row sm:items-center sm:gap-7">
-        <Button
-          size="lg"
-          className="rounded-lg px-[22px] max-sm:w-full"
-          render={<Link href="/blog" />}
-          nativeButton={false}
-        >
-          Read the blog →
-        </Button>
-        <Link
-          href="/about"
-          className="text-[15px] font-medium text-link transition-colors duration-150 hover:text-link-hover"
-        >
-          About & resume
-        </Link>
-      </div>
-
-      <section className="mt-24" aria-labelledby="recent-writing">
-        <div className="flex items-baseline justify-between">
-          <h2 id="recent-writing" className="mono-label text-muted-foreground">
+      <Window title="Journal · recent writing" aria-labelledby="recent-writing">
+        <div className="mb-3 flex items-baseline justify-between gap-4">
+          <h2 id="recent-writing" className="sr-only">
             Recent writing
           </h2>
           <Link
             href="/blog"
-            className="text-sm text-link transition-colors duration-150 hover:text-link-hover"
+            className="ml-auto flex min-h-9 items-center text-sm text-link transition-colors duration-150 hover:text-link-hover"
           >
             All posts →
           </Link>
         </div>
-        <div className="mt-5">
+        <div className="flex flex-col gap-3">
           {recent.length === 0 ? (
             <EmptyPosts />
           ) : (
-            recent.map((post) => <PostRow key={post.slug} post={post} />)
+            recent.map((post) => <PostRow key={post.slug} post={post} showTags />)
           )}
         </div>
-      </section>
-    </div>
+      </Window>
+
+      <Window title="Achievements" aria-labelledby="achievements">
+        <h2 id="achievements" className="sr-only">
+          Achievements
+        </h2>
+        <ul className="grid gap-5 sm:grid-cols-2 xl:grid-cols-4">
+          {achievements.map(({ stat, detail }) => (
+            <li key={stat} className="text-[15px] leading-normal text-muted-foreground">
+              <b className="mb-1 block font-pixel text-[2.1rem] font-normal leading-none text-primary md:text-[2.4rem]">
+                {stat}
+              </b>
+              {detail}
+            </li>
+          ))}
+        </ul>
+      </Window>
+    </Shell>
   )
 }

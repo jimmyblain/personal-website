@@ -2,6 +2,8 @@ import type { Metadata } from "next"
 import Link from "next/link"
 import { notFound } from "next/navigation"
 import { PostRow } from "@/components/post-row"
+import { Shell } from "@/components/shell"
+import { Window } from "@/components/window"
 import { TagChip } from "@/components/tag-chip"
 import { getAllPosts, getAllTags, tagToSlug } from "@/lib/posts"
 import { rssAlternate } from "@/lib/site"
@@ -36,29 +38,34 @@ export default async function TagPage({ params }: { params: Promise<{ tag: strin
   const posts = getAllPosts().filter((p) => p.tags.some((t) => tagToSlug(t) === tag))
 
   return (
-    <div className="mx-auto max-w-[760px] px-5 pb-24 pt-16">
-      <p className="mono-label text-muted-foreground">Writing</p>
-      <h1 className="mt-4 text-[2rem] font-semibold leading-[1.1] tracking-[-0.025em] md:text-[2.75rem]">
-        Tagged: {match.tag}
-      </h1>
-      <p className="mt-6 text-lg text-muted-foreground">
-        {posts.length} {posts.length === 1 ? "post" : "posts"} ·{" "}
-        <Link href="/blog" className="text-link transition-colors duration-150 hover:text-link-hover">
-          All posts
-        </Link>
-      </p>
+    <Shell>
+      <Window as="header" title="Journal · tag">
+        <h1 className="font-pixel text-[2.6rem] leading-none md:text-[3rem] lg:text-[3.75rem]">
+          Tagged: {match.tag}
+        </h1>
+        <p className="mt-3 text-muted-foreground">
+          {posts.length} {posts.length === 1 ? "post" : "posts"} ·{" "}
+          <Link
+            href="/blog"
+            className="text-link underline decoration-link/40 underline-offset-4 transition-colors duration-150 hover:text-link-hover"
+          >
+            All posts
+          </Link>
+        </p>
+        <div className="mt-5 flex flex-wrap gap-2">
+          {tags.map((t) => (
+            <TagChip key={t.slug} tag={t.tag} active={t.slug === tag} />
+          ))}
+        </div>
+      </Window>
 
-      <div className="mt-8 flex flex-wrap gap-2">
-        {tags.map((t) => (
-          <TagChip key={t.slug} tag={t.tag} active={t.slug === tag} />
-        ))}
-      </div>
-
-      <div className="mt-12">
-        {posts.map((post) => (
-          <PostRow key={post.slug} post={post} showTags headingLevel="h2" />
-        ))}
-      </div>
-    </div>
+      <Window title={`Entries · ${posts.length}`} aria-label={`Posts tagged ${match.tag}`}>
+        <div className="flex flex-col gap-3">
+          {posts.map((post) => (
+            <PostRow key={post.slug} post={post} showTags headingLevel="h2" />
+          ))}
+        </div>
+      </Window>
+    </Shell>
   )
 }

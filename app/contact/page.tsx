@@ -1,5 +1,6 @@
 import type { Metadata } from "next"
-import { Button } from "@/components/ui/button"
+import { Shell } from "@/components/shell"
+import { Window } from "@/components/window"
 import { rssAlternate, site } from "@/lib/site"
 
 export const metadata: Metadata = {
@@ -16,45 +17,42 @@ const rows = [
 
 export default function ContactPage() {
   return (
-    <div className="mx-auto max-w-[640px] px-5 pb-24 pt-20">
-      <p className="mono-label text-muted-foreground">Contact</p>
-      <h1 className="mt-4 text-[2rem] font-semibold leading-[1.1] tracking-[-0.025em] md:text-[2.75rem]">
-        Let's talk.
-      </h1>
-      <p className="mt-6 max-w-[48ch] text-lg leading-[1.75] text-muted-foreground">
-        Open to conversations about IT leadership, applied AI, and building systems that ship. The
-        fastest way to reach me is email.
-      </p>
+    <Shell>
+      <Window title="Contact">
+        <h1 className="font-pixel text-[2.6rem] leading-none md:text-[3rem] lg:text-[3.75rem]">
+          Let&apos;s talk.
+        </h1>
+        <p className="mt-3 max-w-[52ch] text-muted-foreground">
+          Open to conversations about IT leadership, applied AI, and building systems that ship.
+          The fastest way to reach me is email.
+        </p>
 
-      <Button
-        size="lg"
-        className="mt-9 rounded-lg px-[22px] max-sm:w-full"
-        render={<a href={`mailto:${site.email}`} />}
-        nativeButton={false}
-      >
-        {site.email} →
-      </Button>
+        {/* break-all: the address is one long word and must wrap inside a 375px window */}
+        <a href={`mailto:${site.email}`} className="btn-cmd mt-5 max-w-full break-all py-2">
+          {site.email}
+        </a>
 
-      <ul className="mt-16">
-        <li className="flex items-center justify-between border-t border-border-subtle py-5">
-          <span className="font-medium">Location</span>
-          <span className="font-mono text-sm text-muted-foreground">New York City metro area</span>
-        </li>
-        {rows.map((row) => (
-          <li key={row.label} className="border-t border-border-subtle">
-            <a
-              href={row.href}
-              {...(row.external ? { target: "_blank", rel: "noopener noreferrer" } : { download: true })}
-              className="group flex items-center justify-between py-5"
-            >
-              <span className="font-medium">{row.label}</span>
-              <span className="font-mono text-sm text-link transition-colors duration-150 group-hover:text-link-hover">
-                {row.value}
-              </span>
-            </a>
+        <ul className="mt-7 max-w-[640px]">
+          <li className="flex flex-wrap items-center justify-between gap-x-4 gap-y-1 border-t-2 border-dashed border-border py-3.5">
+            <span className="px-label">Location</span>
+            <span className="text-muted-foreground">New York City metro area</span>
           </li>
-        ))}
-      </ul>
-    </div>
+          {rows.map((row) => (
+            <li key={row.label} className="border-t-2 border-dashed border-border">
+              <a
+                href={row.href}
+                {...(row.external ? { target: "_blank", rel: "noopener noreferrer" } : { download: true })}
+                className="group flex min-h-12 flex-wrap items-center justify-between gap-x-4 gap-y-1 py-3"
+              >
+                <span className="px-label">{row.label}</span>
+                <span className="text-link transition-colors duration-150 group-hover:text-link-hover">
+                  {row.value}
+                </span>
+              </a>
+            </li>
+          ))}
+        </ul>
+      </Window>
+    </Shell>
   )
 }
